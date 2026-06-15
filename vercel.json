@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cd sentinel/frontend && npm install && npm run build",
+  "buildCommand": "cd sentinel/frontend && npm install && npx vite build",
   "outputDirectory": "sentinel/frontend/dist",
   "functions": {
     "api/index.js": {
