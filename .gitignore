@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Env files — utiliser les variables d'environnement Vercel / HF Spaces
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+sentinel/frontend/dist/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vercel
+.vercel

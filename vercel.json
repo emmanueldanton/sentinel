@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "buildCommand": "cd sentinel/frontend && npm install && npm run build",
+  "outputDirectory": "sentinel/frontend/dist",
+  "functions": {
+    "api/index.js": {
+      "memory": 512,
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    { "source": "/sentinel/api/:path*", "destination": "/api/index" },
+    { "source": "/sentinel/auth/:path*", "destination": "/api/index" },
+    { "source": "/sentinel/health", "destination": "/api/index" },
+    { "source": "/:path*", "destination": "/index.html" }
+  ],
+  "crons": [
+    { "path": "/sentinel/api/cache", "schedule": "*/15 * * * *" }
+  ]
+}
