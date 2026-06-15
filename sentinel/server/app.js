@@ -1,7 +1,5 @@
 'use strict';
 // app.js — Express app exportable (Vercel serverless + start.js local)
-// Le fichier index.js original est conserve pour le demarrage local.
-
 require('dotenv').config({ path: require('path').join(__dirname, '.env') });
 
 const path = require('path');
@@ -33,8 +31,10 @@ const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10 });
 app.use(`${BASE}/auth/login`, loginLimiter);
 app.use(`${BASE}/auth`, authRouter);
 
+// Bypass : SENTINEL_DEV_AUTH_BYPASS=true suffit, independamment de NODE_ENV
+// Utile pour les demos Vercel sans SSO configure.
 function isBypass() {
-  return process.env.SENTINEL_DEV_AUTH_BYPASS === 'true' && process.env.NODE_ENV !== 'production';
+  return process.env.SENTINEL_DEV_AUTH_BYPASS === 'true';
 }
 
 // Auth guard
