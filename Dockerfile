@@ -2,15 +2,16 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy server package files and install dependencies
-COPY sentinel/server/package.json sentinel/server/package-lock.json ./sentinel/server/
-RUN cd sentinel/server && npm ci --production
+# ── Frontend build ─────────────────────────────────────────────────────────────
+COPY sentinel/frontend/package.json ./sentinel/frontend/
+RUN cd sentinel/frontend && npm install
+COPY sentinel/frontend/ ./sentinel/frontend/
+RUN cd sentinel/frontend && npx vite build
 
-# Copy server source code
+# ── Server install ─────────────────────────────────────────────────────────────
+COPY sentinel/server/package.json ./sentinel/server/
+RUN cd sentinel/server && npm install --omit=dev
 COPY sentinel/server/ ./sentinel/server/
-
-# Copy pre-built frontend dist
-COPY sentinel/frontend/dist/ ./sentinel/frontend/dist/
 
 EXPOSE 3005
 
